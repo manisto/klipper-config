@@ -4,4 +4,5 @@
 /crowsnest.conf
 /moonraker.conf
 /printer.cfg
+/printer-*.cfg
 *.conf.bkp
