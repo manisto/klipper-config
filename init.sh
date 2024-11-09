@@ -7,16 +7,21 @@ then
     exit 1
 fi
 
+# $1 - configuration name (eg. v2.4)
+# $2 - file to process (eg. printer.cfg)
 function init_file() {
     if [ -f "$2" ]; then
-        if [ ! -L "$2" ]; then
-            cp "$2" "./$1/$2"
+        if [ -L "$2" ]; then
+            echo "$2 already linked, skipping"
+        else
+            echo "Transferring and linking contents of $2"
+            mv "$2" "./$1/$2"
+            ln -s "./$1/$2"
         fi
-
-        rm "$2"
+    else
+        echo "Linking $2"
+        ln -s "./$1/$2"
     fi
-
-    ln -s "./$1/$2"
 }
 
 init_file $1 crowsnest.conf
